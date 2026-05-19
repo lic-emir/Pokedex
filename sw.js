@@ -18,7 +18,7 @@ const assets = [
     './assets/favicon.ico'
 ];
 
-const nameCache = 'pokedex-v4';
+const nameCache = 'pokedex-v5';
 
 self.addEventListener('install', e => {
     e.waitUntil(
