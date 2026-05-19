@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Sirve para ver estadísticas base de los Pokemon, para realizar búsquedas por nombre, filtrar por tipos y guardar en el navegador tu Pokemon favorito ">
+  <link rel="canonical" href="https://pokedex-emir.netlify.app/" />
+  <meta name="keywords" content="pokedex, javascript, pokeApi, emir">
+  <meta name="author" content="Emir Ponce">
+  <!-- iOS fallback (Safari no usa manifest completo) -->
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+  <title>Pokédex Online - Mira estadisticas, raliza busquedas y filtra por tipos</title>
+  <meta property="og:title" content="Pokédex by Emir">
+  <meta property="og:description"
+    content="Pokédex web con paginación basada en API, búsqueda por nombre y tipo, gestión de favoritos en localStorage y visualización de estadísticas en modal.">
+  <meta property="og:image" content="https://pokedex-emir.netlify.app/assets/pokedex.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt"
+    content="Logo de Pokédex con una pokébola centrada, título grande y referencias a HTML, CSS y JavaScript sobre fondo claro">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pokedex-emir.netlify.app/" />
+  <meta property="og:site_name" content="Pokédex by Emir">
+  <meta property="og:locale" content="es_LA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@PonceEmir33702">
+  <meta name="twitter:creator" content="@PonceEmir33702">
+  <meta name="twitter:title" content="Pokédex by Emir">
+  <meta name="twitter:description"
+    content="Pokédex interactiva con búsqueda, favoritos persistentes y estadísticas detalladas de cada Pokémon.">
+  <meta name="twitter:image" content="https://pokedex-emir.netlify.app/assets/pokedex-twitter.jpg">
+  <meta name="twitter:image:alt" content="Logo de Pokédex con pokébola y tecnologías HTML, CSS y JavaScript">
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Poppins:wght@100;300;400;500;600;700&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Poppins:wght@100;300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="manifest" href="/manifest.json" />
+</head>
+
+<body>
+  <header>
+    <nav class="nav">
+      <div class="nav__container">
+        <h1 class="nav__title"><a href="index.html">Pokédex</a></h1>
+        <a href="#menu" class="nav__menu">
+          <img src="./assets/menu.svg" width="48px" height="48px" class="nav__icon" alt="icono de menú">
+        </a>
+        <a href="#" class="nav__menu nav__icon--second">
+          <img src="./assets/close.svg" width="48px" height="48px" class="nav__icon" alt="icono de cerrar">
+        </a>
+        <ul class="dropdown" id="menu" role="menubar">
+          <li class="dropdown__list" role="menuitem">
+            <button class="btn btn-full dropdown__link">
+              <img src="./assets/home.svg" width="24px" height="24px" class="dropdown__icon" alt="icono de inicio">
+              <span class="dropdown__span">Inicio</span>
+            </button>
+          </li>
+          <li class="dropdown__list" role="menuitem">
+            <button class="btn btn-full dropdown__link" id="favoritos">
+              <img src="./assets/heart.svg" width="24px" height="24px" class="dropdown__icon" alt="icono de favoritos">
+              <span class="dropdown__span">Favoritos</span>
+            </button>
+          </li>
+          <li class="dropdown__list" role="menuitem">
+            <button class="btn btn-full dropdown__link">
+              <img src="./assets/arrow-down-a-z.svg" width="24px" height="24px" class="dropdown__icon"
+                alt="icono de tipos">
+              <span class="dropdown__span">Tipos</span>
+              <img src="./assets/down.svg" width="24px" height="24px" class="dropdown__arrow" alt="icono de flecha">
+              <input type="checkbox" class="dropdown__check" aria-label="Expandir tipos">
+            </button>
+            <div class="dropdown__content">
+              <ul role="menu" class="dropdown__sub"></ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main class="container">
+    <div class="search-box">
+      <img src="./assets/search.svg" width="24px" height="24px" class="dropdown__icon" alt="icono de búsqueda">
+      <input aria-label="Buscar pokemon solo por nombre" type="search" class="search-input" id="search-pokemon"
+        placeholder="Buscar Pokemon">
+    </div>
+    <div class="btn-container"></div>
+    <div class="container-pokemon"></div>
+  </main>
+  <div class="modal hidden"></div>
+  <footer>
+    <p>Pokédex desarrollada por Emir Ponce • Datos de PokéAPI • Proyecto educativo</p>
+  </footer>
+
+  <script defer src="/src/anime.js"></script>
+  <script defer src="/src/script.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('SW registrado:', reg.scope))
+          .catch(err => console.error('SW error:', err));
+      }
+    });
+  </script>
+</body>
+
+</html>
